@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+
+
+{% comment %}All job with pagination{% endcomment %}
+
+{% block job_list %}
+<h1 style="width: 200px; margin:auto;">JOB List</h1>
+    {% if job_list %}
+        <ul>
+            {% for job in job_list %}
+                <li>{{ job.title }}</li>
+                <!-- Display other job details -->
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if job_list.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <br>
+                    <br>
+                    <a href="?page={{ job_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ job_list.number }} of {{ job_list.paginator.num_pages }}.
+                </span>
+
+                {% if job_list.has_next %}
+                    <a href="?page={{ job_list.next_page_number }}">next</a>
+                    <br>
+                    <br>
+                    <a href="?page={{ job_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <h2>No jobs available</h2>
+    {% endif %}
+
+
+{% endblock job_list %}
+    
